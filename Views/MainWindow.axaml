@@ -1,0 +1,52 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MultiViewChange.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="using:Avalonia.Xaml.Interactivity"
+        xmlns:ei="using:Avalonia.Xaml.Interactions.Core"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="MultiViewChange.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="MultiViewChange">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid>
+        <SplitView DisplayMode="CompactOverlay" 
+                   OpenPaneLength="100" 
+                   IsPaneOpen="{Binding IsPaneOpen}" 
+                   >
+            <i:Interaction.Behaviors>
+                <ei:EventTriggerBehavior EventName="PointerEntered">
+                    <InvokeCommandAction Command="{Binding SplitViewMouseEnterCommand}"></InvokeCommandAction>
+                </ei:EventTriggerBehavior>
+                <ei:EventTriggerBehavior EventName="PointerExited">
+                    <InvokeCommandAction Command="{Binding SplitViewMouseLeaveCommand}"></InvokeCommandAction>
+                </ei:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+            <SplitView.Pane>
+                <StackPanel>
+                    <Button Command="{Binding ShowAppleView}" Content="{Binding ABtnContent}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+                    <Button Command="{Binding ShowBananaView}" Content="{Binding BBtnContent}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+                </StackPanel>
+            </SplitView.Pane>
+            <Panel>
+                
+            </Panel>
+        </SplitView>
+        <TransitioningContentControl Content="{Binding MainWindowInnerView}">
+            <TransitioningContentControl.Transitions>
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:1"/>
+                </Transitions>
+            </TransitioningContentControl.Transitions>
+        </TransitioningContentControl>
+    </Grid>
+
+</Window>
