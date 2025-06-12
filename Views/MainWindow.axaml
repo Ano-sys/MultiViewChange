@@ -37,16 +37,14 @@
                 </StackPanel>
             </SplitView.Pane>
             <Panel>
-                
+                <TransitioningContentControl Content="{Binding MainWindowInnerView}">
+                    <TransitioningContentControl.Transitions>
+                        <Transitions>
+                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:1"/>
+                        </Transitions>
+                    </TransitioningContentControl.Transitions>
+                </TransitioningContentControl>
             </Panel>
         </SplitView>
-        <TransitioningContentControl Content="{Binding MainWindowInnerView}">
-            <TransitioningContentControl.Transitions>
-                <Transitions>
-                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:1"/>
-                </Transitions>
-            </TransitioningContentControl.Transitions>
-        </TransitioningContentControl>
     </Grid>
-
 </Window>
